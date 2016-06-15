@@ -11,16 +11,16 @@ class Task < ActiveRecord::Base
   belongs_to :story, :inverse_of => :tasks, :counter_cache => true
   
   has_many :task_assignments, :dependent => :destroy, :inverse_of => :task_assignments
-  has_many :users, :through => :task_assignments
+  has_many :users, :through => :task_assignments, :accessible => true, :dependent => :destroy
 
   # --- Permissions --- #
 
   def create_permitted?
-    acting_user.administrator?
+    acting_user.signed_up?
   end
 
   def update_permitted?
-    acting_user.administrator?
+    acting_user.signed_up? && !story_changed?
   end
 
   def destroy_permitted?
