@@ -10,7 +10,7 @@ Agility::Application.routes.draw do
 
 
   # Resource routes for controller stories
-  resources :stories
+  resources :stories, :only => [:new, :edit, :show, :create, :update, :destroy]
 
   # Owner routes for controller stories
   resources :projects, :as => :project, :only => [] do
@@ -24,7 +24,7 @@ Agility::Application.routes.draw do
 
 
   # Resource routes for controller tasks
-  resources :tasks, :only => [:new, :edit, :show, :create, :update, :destroy]
+  resources :tasks, :only => [:edit, :create, :update, :destroy]
 
   # Owner routes for controller tasks
   resources :stories, :as => :story, :only => [] do
